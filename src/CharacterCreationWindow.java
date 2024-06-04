@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 
 public class CharacterCreationWindow extends JFrame {
     private JComboBox<String> classComboBox;
-    private JTextField healthField;
-    private JTextField strengthField;
-    private JTextField dexterityField;
+    private JSlider healthSlider;
+    private JSlider strengthSlider;
+    private JSlider dexteritySlider;
     private JComboBox<String> weaponComboBox;
 
     public CharacterCreationWindow() {
@@ -27,16 +27,16 @@ public class CharacterCreationWindow extends JFrame {
         panel.add(classComboBox);
 
         panel.add(new JLabel("Health:"));
-        healthField = new JTextField();
-        panel.add(healthField);
+        healthSlider = createSlider();
+        panel.add(healthSlider);
 
         panel.add(new JLabel("Strength:"));
-        strengthField = new JTextField();
-        panel.add(strengthField);
+        strengthSlider = createSlider();
+        panel.add(strengthSlider);
 
         panel.add(new JLabel("Dexterity:"));
-        dexterityField = new JTextField();
-        panel.add(dexterityField);
+        dexteritySlider = createSlider();
+        panel.add(dexteritySlider);
 
         panel.add(new JLabel("Weapon:"));
         weaponComboBox = new JComboBox<>();
@@ -49,6 +49,14 @@ public class CharacterCreationWindow extends JFrame {
         panel.add(createButton);
 
         add(panel);
+    }
+
+    private JSlider createSlider() {
+        JSlider slider = new JSlider(1, 10);
+        slider.setMajorTickSpacing(1);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        return slider;
     }
 
     private void updateWeaponOptions() {
@@ -83,9 +91,9 @@ public class CharacterCreationWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             String selectedClass = (String) classComboBox.getSelectedItem();
-            int health = Integer.parseInt(healthField.getText());
-            int strength = Integer.parseInt(strengthField.getText());
-            int dexterity = Integer.parseInt(dexterityField.getText());
+            int health = healthSlider.getValue();
+            int strength = strengthSlider.getValue();
+            int dexterity = dexteritySlider.getValue();
             String selectedWeapon = (String) weaponComboBox.getSelectedItem();
 
             // Criação do personagem com base nos dados fornecidos
